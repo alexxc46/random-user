@@ -7,17 +7,48 @@ class UsersDataHandler extends BaseDataHandler
     private static $url = 'https://randomuser.me/api/';
 
     public function processData($responses){
+        $userData = [];
 
+        foreach ($responses as $response) {
+            $responseData = $response->json();
+            $userData = array_merge($userData, $responseData['results']);
+        }
+
+        return $userData;
     }
-    public function extractAndConvertToXml($data){
-        
+
+    public function extractAndConvertToXml($userData){
+        $xmlData = new \SimpleXMLElement('<users></users>');
+
+        foreach ($userData as $user) {
+            $xmlUser = $xmlData->addChild('user');
+
+            $fullName = $user['name']['first'] . ' ' . $user['name']['last'];
+
+            $xmlUser->addChild('name', $fullName);
+
+            // Check if 'phone' key is present, otherwise, add a placeholder value
+            $phone = isset($user['phone']) ? $user['phone'] : 'N/A';
+            $xmlUser->addChild('phone', $phone);
+
+            // Add 'email' and 'country' fields if available
+            $xmlUser->addChild('email', isset($user['email']) ? $user['email'] : 'N/A');
+            $xmlUser->addChild('country', isset($user['location']['country']) ? $user['location']['country'] : 'N/A');
+        }
+
+        return $xmlData->asXML();
+    }
+
+    public function sortUserData($userData)
+    {       
+        usort($userData, function ($a, $b) {
+            return strcmp($b['name']['last'], $a['name']['last']);
+        });
+
+        return $userData;
     }
 
     public static function getUrl() {
         return self::$url;
     }
 }
-
-// создадим сервис, в котором определим, какой именно класс будет юзаться и сбайндим его в этом сервисе или еще где.
-// это будет аналог резолвера из предыдущего варианта
-// а в коде все останется как было

@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Interfaces\DataHandlerInterface;
-use App\Classes\UsersDataHandler;
-use App\Classes\ActivitiesDataHandler;
-use App\Classes\BaseDataHandler;
+use Illuminate\Support\Facades\Response;
 
 class DataController extends Controller
 {
@@ -18,16 +16,20 @@ class DataController extends Controller
     }
 
     public function index()
-    {
-        
-
-        $responses = [];
+    {        
         $count = $this->dataHandler->getDataLength();
+        $responses = [];
 
         for ($i = 1; $i <= $count; $i++) {
             $responses[] = $this->dataHandler->fetchData();
         }
-        dd($responses);
-        return $this->dataHandler->processData($responses);
+
+        $processedData = $this->dataHandler->processData($responses);
+
+        $sortedUserData = $this->dataHandler->sortUserData($processedData);
+
+        $xmlData = $this->dataHandler->extractAndConvertToXml($sortedUserData);
+
+        return view('xmlx', ['xmlData' => $xmlData]);
     }
 }

@@ -8,7 +8,7 @@ abstract class BaseDataHandler implements DataHandlerInterface
 {
     // Common methods or properties for both Users and Activities data handling
 
-    private $dataLength = 2;
+    private $dataLength = 4;
 
     public function fetchData()
     {
