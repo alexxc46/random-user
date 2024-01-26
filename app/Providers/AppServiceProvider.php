@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Classes\ActivitiesDataHandler;
+use App\Classes\BaseDataHandler;
+use App\Classes\UsersDataHandler;
+use App\Http\Controllers\DataController;
+use App\Interfaces\DataHandlerInterface;
+use App\Services\DataHandlerService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +17,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $dataHandlerService = new DataHandlerService();
+        $dataHandlerService->bindDataHandler();
     }
 
     /**
