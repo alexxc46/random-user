@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataController;
-use App\Http\Controllers\XmlController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +15,3 @@ use App\Http\Controllers\XmlController;
 */
 
 Route::get('/', [DataController::class, 'index']);
-Route::get('/generate-xml', [XmlController::class, 'generateXml']);
