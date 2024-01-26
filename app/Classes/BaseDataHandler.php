@@ -21,7 +21,7 @@ abstract class BaseDataHandler implements DataHandlerInterface
 
     public abstract function extractAndConvertToXml($data);
 
-    protected abstract function getUrl();
+    protected abstract static function getUrl();
 
     public function getDataLength() {
         return $this->dataLength;

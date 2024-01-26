@@ -9,8 +9,14 @@ use Illuminate\Support\Facades\Http;
 
 class DataHandlerService
 {
-    private $primaryApiUrl = 'https://randomuser2.me/api/';
-    private $backupApiUrl = 'https://www.boredapi.com/api/activity';
+    private $primaryApiUrl;
+    private $backupApiUrl;
+
+    public function __construct()
+    {
+        $this->primaryApiUrl = UsersDataHandler::getUrl();
+        $this->backupApiUrl = ActivitiesDataHandler::getUrl();
+    }
 
     public function bindDataHandler()
     {

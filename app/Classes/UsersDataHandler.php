@@ -4,7 +4,7 @@ namespace App\Classes;
 
 class UsersDataHandler extends BaseDataHandler
 {
-    private $url = 'https://randomuser.me/api/';
+    private static $url = 'https://randomuser.me/api/';
 
     public function processData($responses){
 
@@ -13,8 +13,8 @@ class UsersDataHandler extends BaseDataHandler
         
     }
 
-    public function getUrl() {
-        return $this->url;
+    public static function getUrl() {
+        return self::$url;
     }
 }
 
