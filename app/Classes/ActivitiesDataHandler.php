@@ -18,7 +18,17 @@ class ActivitiesDataHandler extends BaseDataHandler
     }
 
     public function extractAndConvertToXml($data){
-        // Implementation for extracting and converting data to XML
+        $xmlData = new \SimpleXMLElement('<root></root>');
+
+        foreach ($data as $item) {
+            $xmlItem = $xmlData->addChild('item');
+
+            foreach ($item as $key => $value) {
+                $xmlItem->addChild($key, is_array($value) ? json_encode($value) : $value);
+            }
+        }
+
+        return $xmlData->asXML();
     }
 
     public function sortUserData($userData)
