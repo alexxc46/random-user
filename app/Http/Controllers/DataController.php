@@ -30,6 +30,10 @@ class DataController extends Controller
 
         $xmlData = $this->dataHandler->extractAndConvertToXml($sortedUserData);
 
-        return view('xmlx', ['xmlData' => $xmlData]);
+        $filename = 'sorted_users_' . time() . '.xml';
+
+        file_put_contents(storage_path('app/' . $filename), $xmlData);
+
+        return response()->download(storage_path('app/' . $filename))->deleteFileAfterSend(true);
     }
 }
