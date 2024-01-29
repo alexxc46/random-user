@@ -7,7 +7,7 @@
         <title>Test</title>
 
         <link rel="preconnect" href="https://fonts.bunny.net">
-     
+        <link rel="stylesheet" href="{{ asset('styles.css') }}">
     </head>
     <body>        
         <div class="container">
