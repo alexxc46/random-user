@@ -7,13 +7,17 @@
         <title>Test</title>
 
         <link rel="preconnect" href="https://fonts.bunny.net">
-
      
     </head>
     <body>        
         <div class="container">
             <h1>Test</h1>
-            <button>Download XML</button>
+            <button onclick="handleClick()">Download XML</button>
         </div>
     </body>
+    <script>
+    function handleClick() {
+        window.location.href = '/xml';
+    }
+</script>
 </html>
