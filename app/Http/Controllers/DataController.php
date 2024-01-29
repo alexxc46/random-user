@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Interfaces\DataHandlerInterface;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Validator;
 
 class DataController extends Controller
 {
@@ -14,9 +15,14 @@ class DataController extends Controller
     {
         $this->dataHandler = $dataHandler;
     }
-
+    
     public function index()
-    {        
+    {   
+        return view('welcome');
+    }
+
+    public function xml()
+    {   
         $count = $this->dataHandler->getDataLength();
         $responses = [];
 
@@ -25,7 +31,7 @@ class DataController extends Controller
         }
 
         $processedData = $this->dataHandler->processData($responses);
-
+        
         $sortedUserData = $this->dataHandler->sortUserData($processedData);
 
         $xmlData = $this->dataHandler->extractAndConvertToXml($sortedUserData);

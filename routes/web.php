@@ -15,3 +15,4 @@ use App\Http\Controllers\DataController;
 */
 
 Route::get('/', [DataController::class, 'index']);
+Route::get('/xml', [DataController::class, 'index']);

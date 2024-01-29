@@ -2,6 +2,9 @@
 
 namespace App\Classes;
 
+use App\Http\Requests\DataRequest;
+use Illuminate\Support\Facades\Validator;
+
 class UsersDataHandler extends BaseDataHandler
 {
     private static $url = 'https://randomuser.me/api/';
@@ -12,6 +15,12 @@ class UsersDataHandler extends BaseDataHandler
         foreach ($responses as $response) {
             $responseData = $response->json();
             $userData = array_merge($userData, $responseData['results']);
+        }
+
+        $validator = Validator::make($userData[0], (new DataRequest())->rules());
+
+        if ($validator->fails()) {
+            return 'wrong name';
         }
 
         return $userData;
